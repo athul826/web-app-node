@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pass123      # Root password
+      MYSQL_DATABASE: node_auth         # Initial database to be created
+      # MYSQL_USER: root                # Remove this; root is the default user
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+  node-app:
+    build: .
+    container_name: node-ap
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql                    # The service name of the MySQL container
+      DB_USER: root                     # Root user (same as MYSQL_USER)
+      DB_PASSWORD: pass123              # Password for the root user
+      DB_NAME: node_auth                # Database name
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+

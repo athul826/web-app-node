@@ -1,0 +1,19 @@
+# Ignore node_modules (not needed inside the container)
+node_modules
+
+# Ignore log files
+*.log
+
+# Ignore Dockerfile (if you don’t want to include it inside the container)
+Dockerfile
+
+# Ignore any temporary files
+*.tmp
+*.swp
+
+# Ignore the build directory
+build/
+
+# Ignore environment files
+.env
+
